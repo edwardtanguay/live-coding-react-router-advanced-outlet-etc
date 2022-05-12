@@ -1,22 +1,37 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams, NavLink, useNavigate, Outlet } from 'react-router-dom';
 
 const url = 'https://edwardtanguay.netlify.app/share/howtos.json';
-const currentCategory = 'PHP';
+const currentCategory = 'React';
 
 export const PageHowtos = () => {
 	const [howtos, setHowtos] = useState([]);
 	let { id } = useParams();
 	id = Number(id);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		(async () => {
 			const allHowtos = (await axios.get(url)).data;
-			const _howtos = allHowtos.filter(m => m.category.toLowerCase() === currentCategory.toLowerCase());
+			const _howtos = allHowtos.filter(
+				(m) =>
+					m.category.toLowerCase() === currentCategory.toLowerCase()
+			);
 			setHowtos(_howtos);
 		})();
 	}, []);
+
+	const getCurrentHowto = () => {
+		if (id) {
+			return howtos.find((m) => m.id == id);
+		} else {
+			if (howtos.length > 0) {
+				const _id = String(howtos[0].id);
+				navigate(_id);
+			}
+		}
+	};
 
 	return (
 		<div className="page_howtos">
@@ -25,39 +40,27 @@ export const PageHowtos = () => {
 				<div className="loading">Loading...</div>
 			) : (
 				<>
-					<p>I currently have {howtos.length} {currentCategory} howtos:</p>
+					<p>
+						I currently have {howtos.length} {currentCategory}{' '}
+						howtos:
+					</p>
 
 					<nav>
 						<ul>
 							{howtos.map((howto, index) => {
-								return <li key={index}><NavLink to={`${howto.id}`}>{howto.title}</NavLink></li>;
+								return (
+									<li key={index}>
+										<NavLink to={`${howto.id}`}>
+											{howto.title}
+										</NavLink>
+									</li>
+								);
 							})}
 						</ul>
 					</nav>
-
-					<div className="howtos">
-						{howtos.map((howto, index) => {
-							return (
-								<>
-									{howto.id === id && (
-										<div className="howto" key={index}>
-											<div className="title">
-												<a
-													target="_blank"
-													href={`https://edwardtanguay.netlify.app/howtos?id=${howto.id}`}
-												>
-													{howto.title} ({howto.id})
-												</a>
-											</div>
-											<pre className="body">
-												{howto.body}
-											</pre>
-										</div>
-									)}
-								</>
-							);
-						})}
-					</div>
+					<hr />
+					<Outlet context={getCurrentHowto()} />
+					<hr />
 				</>
 			)}
 		</div>

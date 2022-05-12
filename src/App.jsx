@@ -3,6 +3,8 @@ import { PageWelcome } from './pages/PageWelcome';
 import { PageBooks } from './pages/PageBooks';
 import { PageHowtos } from './pages/PageHowtos';
 import { PageAbout } from './pages/PageAbout';
+import { Howto } from './components/Howto';
+
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
 				<Route path="/welcome" element={<PageWelcome />} />
 				<Route path="/books/*" element={<PageBooks />} />
 				<Route path="/howtos" element={<PageHowtos />}>
-					<Route path=":id" />
+					<Route path=":id" element={<Howto/>} />
 				</Route>
 				<Route path="/about" element={<PageAbout />} />
 				<Route path="/" element={<Navigate to="/welcome" replace />} />
