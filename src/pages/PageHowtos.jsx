@@ -18,7 +18,15 @@ export const PageHowtos = () => {
 			{howtos.length === 0 ? (
 				<div className="loading">Loading...</div>
 			) : (
-				<p>I currently have {howtos.length} howtos:</p>
+				<>
+					<p>I currently have {howtos.length} howtos:</p>
+
+					<ul>
+						{howtos.map((howto, index) => {
+							return <li key={index}>{howto.title}</li>;
+						})}
+					</ul>
+				</>
 			)}
 		</>
 	);
