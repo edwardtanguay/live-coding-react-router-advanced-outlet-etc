@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 
 const url = 'https://edwardtanguay.netlify.app/share/howtos.json';
 
@@ -24,6 +24,14 @@ export const PageHowtos = () => {
 				<>
 					<p>I currently have {howtos.length} howtos:</p>
 
+					<nav>
+						<ul>
+							{howtos.map((howto, index) => {
+								return <li key={index}><NavLink to={`${howto.id}`}>{howto.title}</NavLink></li>;
+							})}
+						</ul>
+					</nav>
+
 					<div className="howtos">
 						{howtos.map((howto, index) => {
 							return (
@@ -35,7 +43,7 @@ export const PageHowtos = () => {
 													target="_blank"
 													href={`https://edwardtanguay.netlify.app/howtos?id=${howto.id}`}
 												>
-													{howto.title}
+													{howto.title} ({howto.id})
 												</a>
 											</div>
 											<pre className="body">
