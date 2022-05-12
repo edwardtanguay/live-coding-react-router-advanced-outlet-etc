@@ -1,7 +1,7 @@
 import { BookGroupFantasy } from '../components/BookGroupFantasy';
 import { BookGroupPolitics } from '../components/BookGroupPolitics';
 import { BookGroupTechnology } from '../components/BookGroupTechnology';
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 
 export const PageBooks = () => {
 	return (
@@ -20,11 +20,12 @@ export const PageBooks = () => {
 					<NavLink to="technology">Technology</NavLink>
 				</li>
 			</ul>
-
+<hr/>
 			<Routes>
 				<Route path="fantasy" element={<BookGroupFantasy />}/>
 				<Route path="politics" element={<BookGroupPolitics />}/>
 				<Route path="technology" element={<BookGroupTechnology />}/>
+				<Route path="/" element={<Navigate to="fantasy" replace/>}/>
 			</Routes>
 		</div>
 	);
