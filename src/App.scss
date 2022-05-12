@@ -33,6 +33,16 @@ body {
 				white-space: pre-wrap;
 			}
 		}
+
+		.buttonArea {
+			display: flex;
+			justify-content: flex-end;
+
+			button.close {
+				margin: 0 0 5px 0;
+				text-align: right;
+			}
+		}
 	}
 
 }
