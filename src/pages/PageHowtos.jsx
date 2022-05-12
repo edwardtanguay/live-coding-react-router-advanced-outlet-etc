@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const url = 'https://edwardtanguay.netlify.app/share/howtos.json';
 
 export const PageHowtos = () => {
 	const [howtos, setHowtos] = useState([]);
+	let { id } = useParams();
+	id = Number(id);
 
 	useEffect(() => {
 		(async () => {
@@ -24,10 +27,23 @@ export const PageHowtos = () => {
 					<div className="howtos">
 						{howtos.map((howto, index) => {
 							return (
-								<div className="howto" key={index}>
-									<div className="title"><a target="_blank" href={`https://edwardtanguay.netlify.app/howtos?id=${howto.id}`}>{howto.title}</a></div>
-									<pre className="body">{howto.body}</pre>
-								</div>
+								<>
+									{howto.id === id && (
+										<div className="howto" key={index}>
+											<div className="title">
+												<a
+													target="_blank"
+													href={`https://edwardtanguay.netlify.app/howtos?id=${howto.id}`}
+												>
+													{howto.title}
+												</a>
+											</div>
+											<pre className="body">
+												{howto.body}
+											</pre>
+										</div>
+									)}
+								</>
 							);
 						})}
 					</div>
