@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, NavLink } from 'react-router-dom';
 
 const url = 'https://edwardtanguay.netlify.app/share/howtos.json';
+const currentCategory = 'PHP';
 
 export const PageHowtos = () => {
 	const [howtos, setHowtos] = useState([]);
@@ -11,7 +12,9 @@ export const PageHowtos = () => {
 
 	useEffect(() => {
 		(async () => {
-			setHowtos((await axios.get(url)).data);
+			const allHowtos = (await axios.get(url)).data;
+			const _howtos = allHowtos.filter(m => m.category.toLowerCase() === currentCategory.toLowerCase());
+			setHowtos(_howtos);
 		})();
 	}, []);
 
@@ -22,7 +25,7 @@ export const PageHowtos = () => {
 				<div className="loading">Loading...</div>
 			) : (
 				<>
-					<p>I currently have {howtos.length} howtos:</p>
+					<p>I currently have {howtos.length} {currentCategory} howtos:</p>
 
 					<nav>
 						<ul>
