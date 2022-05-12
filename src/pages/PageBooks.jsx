@@ -20,12 +20,12 @@ export const PageBooks = () => {
 					<NavLink to="technology">Technology</NavLink>
 				</li>
 			</ul>
-<hr/>
+			<hr />
 			<Routes>
-				<Route path="fantasy" element={<BookGroupFantasy />}/>
-				<Route path="politics" element={<BookGroupPolitics />}/>
-				<Route path="technology" element={<BookGroupTechnology />}/>
-				<Route path="/" element={<Navigate to="fantasy" replace/>}/>
+				<Route path="fantasy" element={<BookGroupFantasy />} />
+				<Route path="politics" element={<BookGroupPolitics />} />
+				<Route path="technology" element={<BookGroupTechnology />} />
+				<Route path="/" element={<Navigate to="fantasy" replace />} />
 			</Routes>
 		</div>
 	);
