@@ -13,7 +13,7 @@ export const PageHowtos = () => {
 	}, []);
 
 	return (
-		<>
+		<div className="page_howtos">
 			<h2>Howtos</h2>
 			{howtos.length === 0 ? (
 				<div className="loading">Loading...</div>
@@ -21,13 +21,18 @@ export const PageHowtos = () => {
 				<>
 					<p>I currently have {howtos.length} howtos:</p>
 
-					<ul>
+					<div className="howtos">
 						{howtos.map((howto, index) => {
-							return <li key={index}>{howto.title}</li>;
+							return (
+								<div className="howto" key={index}>
+									<div className="title"><a target="_blank" href={`https://edwardtanguay.netlify.app/howtos?id=${howto.id}`}>{howto.title}</a></div>
+									<pre className="body">{howto.body}</pre>
+								</div>
+							);
 						})}
-					</ul>
+					</div>
 				</>
 			)}
-		</>
+		</div>
 	);
 };
